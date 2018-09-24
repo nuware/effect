@@ -39,6 +39,6 @@
     }
   },
   "dependencies": {
-    "@nuware/functions": "^0.1.13"
+    "@nuware/functions": "^0.1.14"
   }
 }
