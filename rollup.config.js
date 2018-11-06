@@ -1,36 +1,54 @@
 import resolve from 'rollup-plugin-node-resolve'
-import minify from 'rollup-plugin-minify-es'
+import commonjs from 'rollup-plugin-commonjs'
+import { terser } from 'rollup-plugin-terser'
+import pkg from './package.json'
 
-const banner = '/**\n * Effect\n *\n * Copyright 2018 Dmitry Dudin <dima@nuware.ru>\n */'
+const banner = `/**
+ * Effect - ${pkg.description}
+ *
+ * @version ${pkg.version}
+ * @license MIT
+ * @copyright Dmitry Dudin <dima@nuware.ru> 2018
+ */`
 
 export default [{
   input: 'src/index.js',
+  external: ['@nuware/functions'],
   output: {
-    file: 'dist/effect.esm.js',
+    file: pkg.module,
     format: 'esm',
     banner
-  },
-  external: ['@nuware/functions']
+  }
+}, {
+  input: 'src/index.js',
+  external: ['@nuware/functions'],
+  output: {
+    file: pkg.main,
+    format: 'cjs',
+    banner
+  }
 }, {
   input: 'src/index.js',
   output: {
-    file: 'dist/effect.umd.js',
+    file: pkg.browser,
     format: 'umd',
     name: 'nuware.Effect',
     banner
   },
   plugins: [
-    resolve()
+    resolve(),
+    commonjs()
   ]
 }, {
   input: 'src/index.js',
   output: {
-    file: 'dist/effect.min.js',
+    file: pkg.minimized,
     format: 'umd',
     name: 'nuware.Effect'
   },
   plugins: [
     resolve(),
-    minify()
+    commonjs(),
+    terser()
   ]
 }]
