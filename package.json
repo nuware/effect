@@ -1,6 +1,6 @@
 {
   "name": "@nuware/effect",
-  "version": "0.1.6",
+  "version": "0.1.7",
   "description": "IO Monad",
   "main": "dist/effect.cjs.js",
   "module": "dist/effect.esm.js",
